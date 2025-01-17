@@ -151,7 +151,7 @@ builder.Services.AddSwaggerGen(options => {
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
     app.UseSwagger();
     //tạo ra nhiều swagger version
@@ -159,11 +159,13 @@ if (app.Environment.IsDevelopment())
     {
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "Magic_VillaV1");
         options.SwaggerEndpoint("/swagger/v2.1/swagger.json", "Magic_VillaV2");
+        //options.RoutePrefix = String.Empty;
     });
 }
 
 app.UseHttpsRedirection();
 app.UseAuthentication();
+app.UseStaticFiles();
 
 app.UseAuthorization();
 
